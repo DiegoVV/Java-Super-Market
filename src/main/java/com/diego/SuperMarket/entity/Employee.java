@@ -18,4 +18,11 @@ public class Employee {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role; // Employee role, either cashier or admin
+
+    public Employee(Float salary, String name, String password, Role role) {
+        this.salary = salary;
+        this.name = name;
+        this.password = password;
+        this.role = role;
+    }
 }

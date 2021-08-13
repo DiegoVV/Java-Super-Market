@@ -18,4 +18,9 @@ public class History {
     private Long productId; // The ID of the product that was bought
     private Integer quantity; // Amount of product bought
     private Float total; // Total cost for this purchase
+
+    public History(Long productId, Integer quantity) {
+        this.productId = productId;
+        this.quantity = quantity;
+    }
 }

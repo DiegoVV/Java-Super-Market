@@ -12,6 +12,12 @@ public class Inventory {
             strategy = GenerationType.IDENTITY
     )
     private Long id;
+    @OneToOne
     private Product product;
     private Integer quantity;
+
+    public Inventory(Product product, Integer quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }
 }

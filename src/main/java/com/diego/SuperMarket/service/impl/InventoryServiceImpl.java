@@ -25,12 +25,6 @@ public class InventoryServiceImpl implements InventoryService {
         Optional<Inventory> inventory = inventoryRepository.findById(id);
 
         return inventory.orElseThrow(NoSuchElementException::new);
-
-//        if (!inventory.isPresent()) {
-//            throw new ElementNotFoundException(String.format("Inventory of ID %d does not exist", id));
-//        } else {
-//            return inventory.get();
-//        }
     }
 
     @Override

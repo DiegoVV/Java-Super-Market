@@ -1,15 +1,17 @@
 package com.diego.SuperMarket.service.impl;
 
 import com.diego.SuperMarket.entity.Inventory;
+import com.diego.SuperMarket.exception.ElementNotFoundException;
 import com.diego.SuperMarket.repository.InventoryRepository;
 import com.diego.SuperMarket.service.InventoryService;
 import lombok.AllArgsConstructor;
-import org.hibernate.PropertyNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -24,8 +26,15 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public Inventory getInventory(Long id) {
-        return inventoryRepository.findById(id)
-                .orElseThrow(() -> new PropertyNotFoundException("Inventory with ID " + id + " does not exist"));
+        Optional<Inventory> inventory = inventoryRepository.findById(id);
+
+        return inventory.orElseThrow(NoSuchElementException::new);
+
+//        if (!inventory.isPresent()) {
+//            throw new ElementNotFoundException(String.format("Inventory of ID %d does not exist", id));
+//        } else {
+//            return inventory.get();
+//        }
     }
 
     @Override

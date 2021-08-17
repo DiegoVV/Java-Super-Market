@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -22,7 +23,7 @@ public class InventoryController {
     }
 
     @GetMapping("/{id}")
-    public Inventory getInventory(@PathVariable("id") Long id) {
+    public Inventory getInventory(@PathVariable("id") Long id) throws NoSuchElementException {
         return inventoryService.getInventory(id);
     }
 

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface InventoryService {
+
     List<Inventory> getInventory();
 
     Inventory getInventory(Long id);
@@ -16,4 +17,6 @@ public interface InventoryService {
     Inventory updateInventory(Long id, Inventory inventory);
 
     ResponseEntity<Map<String, Boolean>> deleteInventory(Long id);
+
+    void deleteInventory();
 }

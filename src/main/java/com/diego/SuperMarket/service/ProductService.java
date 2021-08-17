@@ -1,6 +1,5 @@
 package com.diego.SuperMarket.service;
 
-import com.diego.SuperMarket.entity.Inventory;
 import com.diego.SuperMarket.entity.Product;
 import org.springframework.http.ResponseEntity;
 
@@ -18,4 +17,6 @@ public interface ProductService {
     Product updateProduct(Long id, Product product);
 
     ResponseEntity<Map<String, Boolean>> deleteProduct(Long id);
+
+    void deleteProduct();
 }

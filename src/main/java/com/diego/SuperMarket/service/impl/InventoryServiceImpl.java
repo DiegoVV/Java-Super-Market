@@ -57,4 +57,9 @@ public class InventoryServiceImpl implements InventoryService {
         response.put(String.format("Inventory of id %d deleted", id), Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
+
+    @Override
+    public void deleteInventory() {
+        inventoryRepository.deleteAll();
+    }
 }

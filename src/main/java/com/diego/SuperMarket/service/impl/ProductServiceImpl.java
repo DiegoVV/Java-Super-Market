@@ -12,6 +12,7 @@ import java.util.*;
 @Service
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
+
     private final ProductRepository productRepository;
 
     @Override
@@ -49,5 +50,10 @@ public class ProductServiceImpl implements ProductService {
         Map<String, Boolean> response = new HashMap<>();
         response.put(String.format("Product of id %d deleted", id), Boolean.TRUE);
         return ResponseEntity.ok(response);
+    }
+
+    @Override
+    public void deleteProduct() {
+        productRepository.deleteAll();
     }
 }

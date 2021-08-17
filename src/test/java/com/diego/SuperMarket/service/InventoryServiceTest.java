@@ -1,16 +1,11 @@
-package com.diego.SuperMarket.service.impl;
+package com.diego.SuperMarket.service;
 
 import com.diego.SuperMarket.entity.Inventory;
 import com.diego.SuperMarket.entity.Product;
 import com.diego.SuperMarket.repository.InventoryRepository;
-import com.diego.SuperMarket.service.InventoryService;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +19,12 @@ class InventoryServiceTest {
 
     @Autowired
     private InventoryService inventoryService;
+
+    @BeforeEach
+    void setUp() {
+        inventoryService.deleteInventory();
+        System.out.println("--- Repository cleaned before test ---");
+    }
 
     @Test
     @DisplayName("Get all inventories")
@@ -77,16 +78,22 @@ class InventoryServiceTest {
     @DisplayName("Adding an inventory")
     void addInventory() {
 
+
+        Assertions.assertTrue(inventoryService.getInventory().isEmpty(), "The repository was not empty");
+
         Product product = new Product("Chocolate", 1.00F);
         Integer quantity = 20;
 
-        Inventory inventory = new Inventory(product,quantity);
+        Inventory inventory = inventoryService.addInventory(new Inventory(product,quantity));
 
-        Assertions.assertEquals(20,inventoryService.addInventory(inventory).getQuantity());
-        Assertions.assertEquals("Chocolate",inventoryService.addInventory(inventory).getProduct().getName());
+        Assertions.assertFalse(inventoryService.getInventory().isEmpty(), "The inventory was not added to the repository");
+
+        Assertions.assertEquals(20,inventoryService.getInventory(inventory.getId()).getQuantity());
+        Assertions.assertEquals("Chocolate",inventoryService.getInventory(inventory.getId()).getProduct().getName());
     }
 
     @Test
+    @DisplayName("Updating inventory info")
     void updateInventory() {
 
         Product product = new Product("Chocolate", 1.00F);
@@ -99,8 +106,13 @@ class InventoryServiceTest {
 
         Long id1 = inventoryService.addInventory(inventory).getId();
 
-        Assertions.assertEquals(50,inventoryService.updateInventory(id1, inventory2).getQuantity());
-        Assertions.assertEquals("Water",inventoryService.updateInventory(id1, inventory2).getProduct().getName());
+        Assertions.assertEquals(20,inventoryService.getInventory(id1).getQuantity());
+        Assertions.assertEquals("Chocolate",inventoryService.getInventory(id1).getProduct().getName());
+
+        Inventory inventory3 = inventoryService.updateInventory(id1, inventory2);
+
+        Assertions.assertEquals(50,inventoryService.getInventory(id1).getQuantity());
+        Assertions.assertEquals("Water",inventoryService.getInventory(id1).getProduct().getName());
     }
 
     @Test
@@ -114,6 +126,11 @@ class InventoryServiceTest {
 
         Assertions.assertFalse(inventoryService.getInventory().isEmpty(), "The inventory was not added to the repository");
         inventoryService.deleteInventory(inventory.getId());
-        Assertions.assertTrue(inventoryService.getInventory().isEmpty(), "The inventory was not deleted");
+        Assertions.assertTrue(inventoryService.getInventory().isEmpty(), "The inventory was not deleted or there are other inventories inside the repository");
+    }
+
+    @AfterEach
+    void tearDown() {
+        System.out.println("--- Test finished ---");
     }
 }

@@ -1,6 +1,8 @@
 package com.diego.SuperMarket.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -8,6 +10,8 @@ import java.time.Instant;
 @Data
 @Entity
 @Table(name="HISTORY")
+@AllArgsConstructor
+@NoArgsConstructor
 public class History {
     @Id
     @GeneratedValue(

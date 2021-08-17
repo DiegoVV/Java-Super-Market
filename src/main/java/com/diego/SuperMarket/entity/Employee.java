@@ -1,12 +1,16 @@
 package com.diego.SuperMarket.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name="EMPLOYEE")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Employee {
     @Id
     @GeneratedValue(

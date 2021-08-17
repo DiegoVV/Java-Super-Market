@@ -6,6 +6,8 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name="PRODUCT")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(

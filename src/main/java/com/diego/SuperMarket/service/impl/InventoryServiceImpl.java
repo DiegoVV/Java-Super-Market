@@ -1,17 +1,13 @@
 package com.diego.SuperMarket.service.impl;
 
 import com.diego.SuperMarket.entity.Inventory;
-import com.diego.SuperMarket.exception.ElementNotFoundException;
 import com.diego.SuperMarket.repository.InventoryRepository;
 import com.diego.SuperMarket.service.InventoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -44,11 +40,21 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public Inventory updateInventory(Long id, Inventory inventory) {
-        return null;
+        Inventory updatedInventory = getInventory(id);
+
+        updatedInventory.setProduct(inventory.getProduct());
+        updatedInventory.setQuantity(inventory.getQuantity());
+
+        return addInventory(updatedInventory);
     }
 
     @Override
     public ResponseEntity<Map<String, Boolean>> deleteInventory(Long id) {
-        return null;
+        Inventory inventory = getInventory(id);
+
+        inventoryRepository.delete(inventory);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put(String.format("Inventory of id %d deleted", id), Boolean.TRUE);
+        return ResponseEntity.ok(response);
     }
 }

@@ -1,8 +1,6 @@
 package com.diego.SuperMarket.controller;
 
-import com.diego.SuperMarket.entity.Inventory;
 import com.diego.SuperMarket.entity.Product;
-import com.diego.SuperMarket.service.InventoryService;
 import com.diego.SuperMarket.service.impl.ProductServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

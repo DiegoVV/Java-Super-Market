@@ -40,14 +40,14 @@ public class SuperMarketExceptions extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ElementNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<Object> handleNoSuchElementFoundException(ElementNotFoundException itemNotFoundException, WebRequest request) {
-        log.error("Failed to find the requested element", itemNotFoundException);
+//        log.error("Failed to find the requested element", itemNotFoundException);
         return buildErrorResponse(itemNotFoundException, HttpStatus.NOT_FOUND, request);
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Object> handleAllUncaughtException(Exception exception, WebRequest request) {
-        log.error("Unknown error occurred", exception);
+//        log.error("Unknown error occurred", exception);
         return buildErrorResponse(exception, "Unknown error occurred", HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
@@ -63,7 +63,7 @@ public class SuperMarketExceptions extends ResponseEntityExceptionHandler {
                                                       WebRequest request) {
         ErrorCode errorResponse = new ErrorCode(httpStatus.value(), message);
         if (printStackTrace && isTraceOn(request)) {
-            errorResponse.setStackTrace(ExceptionUtils.getStackTrace(exception));
+//            errorResponse.setStackTrace(ExceptionUtils.getStackTrace(exception));
         }
         return ResponseEntity.status(httpStatus).body(errorResponse);
     }

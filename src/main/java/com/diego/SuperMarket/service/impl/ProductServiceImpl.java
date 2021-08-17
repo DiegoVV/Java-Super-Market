@@ -1,18 +1,13 @@
 package com.diego.SuperMarket.service.impl;
 
-import com.diego.SuperMarket.entity.Inventory;
 import com.diego.SuperMarket.entity.Product;
-import com.diego.SuperMarket.repository.InventoryRepository;
 import com.diego.SuperMarket.repository.ProductRepository;
 import com.diego.SuperMarket.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -38,11 +33,21 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(Long id, Product product) {
-        return null;
+        Product updateProduct = getProduct(id);
+
+        updateProduct.setName(product.getName());
+        updateProduct.setPrice(product.getPrice());
+
+        return addProduct(updateProduct);
     }
 
     @Override
     public ResponseEntity<Map<String, Boolean>> deleteProduct(Long id) {
-        return null;
+        Product product = getProduct(id);
+
+        productRepository.delete(product);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put(String.format("Product of id %d deleted", id), Boolean.TRUE);
+        return ResponseEntity.ok(response);
     }
 }

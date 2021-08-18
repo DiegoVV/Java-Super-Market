@@ -79,13 +79,13 @@ class HistoryServiceTest {
 
         Long id1 = history.getId();
 
-        Assertions.assertEquals(1L, historyService.getHistory(id1).getProductId());
+        Assertions.assertEquals(product.getId(), historyService.getHistory(id1).getProductId());
         Assertions.assertEquals(5, historyService.getHistory(id1).getQuantity());
         Assertions.assertEquals(history.getDate(), historyService.getHistory(id1).getDate());
 
         History history3 = historyService.updateHistory(id1, history2);
 
-        Assertions.assertEquals(2L, historyService.getHistory(id1).getProductId());
+        Assertions.assertEquals(product2.getId(), historyService.getHistory(id1).getProductId());
         Assertions.assertEquals(15, historyService.getHistory(id1).getQuantity());
         Assertions.assertEquals(history2.getDate(), historyService.getHistory(id1).getDate());
 

@@ -3,9 +3,11 @@ package com.diego.SuperMarket.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 @Data
 @Entity
@@ -18,6 +20,7 @@ public class History {
             strategy = GenerationType.IDENTITY
     )
     private Long id;
+    @CreatedDate
     private Instant date; // Moment of purchase
     private Long productId; // The ID of the product that was bought
     private Integer quantity; // Amount of product bought
@@ -26,5 +29,6 @@ public class History {
     public History(Long productId, Integer quantity) {
         this.productId = productId;
         this.quantity = quantity;
+        this.date = Instant.now().truncatedTo(ChronoUnit.SECONDS);
     }
 }

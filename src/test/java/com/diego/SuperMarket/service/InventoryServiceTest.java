@@ -2,7 +2,6 @@ package com.diego.SuperMarket.service;
 
 import com.diego.SuperMarket.entity.Inventory;
 import com.diego.SuperMarket.entity.Product;
-import com.diego.SuperMarket.repository.InventoryRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,10 +11,6 @@ import java.util.List;
 
 @SpringBootTest
 class InventoryServiceTest {
-
-//    @MockBean
-    @Autowired
-    private InventoryRepository inventoryRepository;
 
     @Autowired
     private InventoryService inventoryService;

@@ -1,24 +1,22 @@
 package com.diego.SuperMarket.service.impl;
 
 import com.diego.SuperMarket.entity.History;
-import com.diego.SuperMarket.entity.Inventory;
 import com.diego.SuperMarket.entity.Product;
 import com.diego.SuperMarket.repository.HistoryRepository;
-import com.diego.SuperMarket.repository.InventoryRepository;
-import com.diego.SuperMarket.repository.ProductRepository;
 import com.diego.SuperMarket.service.HistoryService;
-import lombok.AllArgsConstructor;
+import com.diego.SuperMarket.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class HistoryServiceImpl implements HistoryService {
 
     private final HistoryRepository historyRepository;
-    private final ProductRepository productRepository;
+    private final ProductService productService;
 
     @Override
     public List<History> getHistory() {
@@ -56,7 +54,7 @@ public class HistoryServiceImpl implements HistoryService {
         if(history.getTotal() != null){
             updatedHistory.setTotal(history.getTotal());
         } else {
-            Product product = getHistoryProduct(updatedHistory.getProductId());
+            Product product = getHistoryProduct(id);
             Float total = product.getPrice() * updatedHistory.getQuantity();
             updatedHistory.setTotal(total);
         } // This might result in a NoSuchElement error if the product doesn't exist.
@@ -84,8 +82,7 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public Product getHistoryProduct(Long historyId) {
         Long productId = getHistory(historyId).getProductId();
-        Optional<Product> product = productRepository.findById(productId);
 
-        return product.orElseThrow(NoSuchElementException::new);
+        return productService.getProduct(productId);
     }
 }

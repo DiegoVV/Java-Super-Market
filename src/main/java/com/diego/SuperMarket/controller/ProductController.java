@@ -29,12 +29,12 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product addInventory(@RequestBody Product product) {
+    public Product addProduct(@RequestBody Product product) {
         return productService.addProduct(product);
     }
 
     @PutMapping("/{id}")
-    public Product updateInventory(@PathVariable("id") Long id, @RequestBody Product product) {
+    public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
         return productService.updateProduct(id, product);
     }
 

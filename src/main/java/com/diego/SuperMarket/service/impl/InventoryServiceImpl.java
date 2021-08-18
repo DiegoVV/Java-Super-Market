@@ -3,14 +3,14 @@ package com.diego.SuperMarket.service.impl;
 import com.diego.SuperMarket.entity.Inventory;
 import com.diego.SuperMarket.repository.InventoryRepository;
 import com.diego.SuperMarket.service.InventoryService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class InventoryServiceImpl implements InventoryService {
 
     private final InventoryRepository inventoryRepository;

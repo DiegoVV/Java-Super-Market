@@ -1,7 +1,6 @@
 package com.diego.SuperMarket.service;
 
 import com.diego.SuperMarket.entity.Product;
-import com.diego.SuperMarket.repository.ProductRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,9 +10,6 @@ import java.util.List;
 
 @SpringBootTest
 class ProductServiceTest {
-
-    @Autowired
-    private ProductRepository productRepository;
 
     @Autowired
     private ProductService productService;

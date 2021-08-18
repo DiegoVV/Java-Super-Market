@@ -3,14 +3,14 @@ package com.diego.SuperMarket.service.impl;
 import com.diego.SuperMarket.entity.Product;
 import com.diego.SuperMarket.repository.ProductRepository;
 import com.diego.SuperMarket.service.ProductService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;

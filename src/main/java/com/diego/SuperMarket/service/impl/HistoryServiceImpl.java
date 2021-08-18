@@ -82,7 +82,8 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public Product getHistoryProduct(Long productId) {
+    public Product getHistoryProduct(Long historyId) {
+        Long productId = getHistory(historyId).getProductId();
         Optional<Product> product = productRepository.findById(productId);
 
         return product.orElseThrow(NoSuchElementException::new);

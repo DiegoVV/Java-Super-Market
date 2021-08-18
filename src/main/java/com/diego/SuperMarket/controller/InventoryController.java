@@ -15,6 +15,7 @@ import java.util.NoSuchElementException;
 @RequestMapping(path = "api/v1/inventories")
 @AllArgsConstructor
 public class InventoryController {
+
     private final InventoryService inventoryService;
 
     @GetMapping
@@ -40,5 +41,10 @@ public class InventoryController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteInventory(@PathVariable("id") Long id){
         return inventoryService.deleteInventory(id);
+    }
+
+    @DeleteMapping()
+    public void deleteInventory(){
+        inventoryService.deleteInventory();
     }
 }

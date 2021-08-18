@@ -15,6 +15,7 @@ import java.util.NoSuchElementException;
 @RequestMapping(path = "api/v1/products")
 @AllArgsConstructor
 public class ProductController {
+
     private final ProductServiceImpl productService;
 
     @GetMapping
@@ -40,5 +41,10 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteProduct(@PathVariable("id") Long id){
         return productService.deleteProduct(id);
+    }
+
+    @DeleteMapping()
+    public void deleteProduct(){
+        productService.deleteProduct();
     }
 }

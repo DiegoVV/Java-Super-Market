@@ -21,5 +21,5 @@ public interface HistoryService {
 
     void deleteHistory();
 
-    Product getHistoryProduct(Long productId);
+    Product getHistoryProduct(Long historyId);
 }

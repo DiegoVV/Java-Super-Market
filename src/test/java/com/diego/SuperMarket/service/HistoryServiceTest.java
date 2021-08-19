@@ -1,6 +1,5 @@
 package com.diego.SuperMarket.service;
 
-import ch.qos.logback.core.spi.LifeCycle;
 import com.diego.SuperMarket.entity.History;
 import com.diego.SuperMarket.entity.Inventory;
 import com.diego.SuperMarket.entity.Product;
@@ -8,8 +7,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @SpringBootTest
 class HistoryServiceTest {
@@ -148,15 +146,24 @@ class HistoryServiceTest {
     }
 
     @Test
+    @DisplayName("Accurately report products with the highest quantity of sales")
     void getMostSoldProducts() {
+
+        Integer productsOnReport = 4;
 
         Product product = productService.addProduct(new Product("Chocolate", 1.00F));
         Product product2 = productService.addProduct(new Product("Water", 2.00F));
         Product product3 = productService.addProduct(new Product("Garlic Bread", 3.50F));
+        Product product4 = productService.addProduct(new Product("Soda", 1.50F));
+        Product product5 = productService.addProduct(new Product("Juice", 2.00F));
+        Product product6 = productService.addProduct(new Product("Candy", 0.50F));
 
         Inventory inventory = inventoryService.addInventory(new Inventory(product, 35));
         Inventory inventory2 = inventoryService.addInventory(new Inventory(product2, 80));
         Inventory inventory3 = inventoryService.addInventory(new Inventory(product3, 100));
+        Inventory inventory4 = inventoryService.addInventory(new Inventory(product4, 90));
+        Inventory inventory5 = inventoryService.addInventory(new Inventory(product5, 70));
+        Inventory inventory6 = inventoryService.addInventory(new Inventory(product6, 500));
 
         History history = historyService.addHistory(new History(product.getId(), 5));
         History history2 = historyService.addHistory(new History(product.getId(), 5));
@@ -164,10 +171,18 @@ class HistoryServiceTest {
         History history4 = historyService.addHistory(new History(product2.getId(), 25));
         History history5 = historyService.addHistory(new History(product3.getId(), 30));
         History history6 = historyService.addHistory(new History(product.getId(), 10));
+        History history7 = historyService.addHistory(new History(product6.getId(), 105));
+        History history8 = historyService.addHistory(new History(product4.getId(), 20));
+        History history9 = historyService.addHistory(new History(product5.getId(), 1));
 
-        historyService.getMostSoldProducts(2);
+        LinkedHashMap<Product, Integer> mostSoldProducts = historyService.getMostSoldProducts(productsOnReport);
 
-        Assertions.assertEquals(1, 1);
+        Assertions.assertTrue(productsOnReport >= mostSoldProducts.size(), "Report contained wrong amount of items");
+
+        Iterator<Map.Entry<Product, Integer>> iterator = mostSoldProducts.entrySet().iterator();
+        Assertions.assertEquals(product6.getId(), iterator.next().getKey().getId(), "Unexpected product listed as with most sales");
+
+
     }
 
     @AfterEach

@@ -107,7 +107,7 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public Map<Product, Integer> getMostSoldProducts(Integer amount) {
+    public LinkedHashMap<Product, Integer> getMostSoldProducts(Integer amount) {
         List<History> history = getHistory();
 
         Map<Product, Integer> sales = new HashMap<>();
@@ -124,16 +124,28 @@ public class HistoryServiceImpl implements HistoryService {
             }
         }
 
-        Map<Product, Integer> sortedSales = sales
+        LinkedHashMap<Product, Integer> sortedSales = sales
                 .entrySet()
                 .stream()
                 .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
                 .collect(
                         toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
                                 LinkedHashMap::new));
-
-        System.out.println(sortedSales);
-
-        return sortedSales;
+        if(sortedSales.size() <= amount){
+            return sortedSales;
+        } else {
+            LinkedHashMap<Product, Integer> limitedSales = new LinkedHashMap<>();
+            Integer count = 0;
+            for(Map.Entry<Product, Integer>  entry : sortedSales.entrySet()) {
+                if (count< amount) {
+                    limitedSales.put(entry.getKey(), entry.getValue());
+                } else {
+                    break;
+                }
+                count += 1;
+            }
+            System.out.println(limitedSales);
+            return limitedSales;
+        }
     }
 }

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -55,7 +56,7 @@ public class HistoryController {
     }
 
     @GetMapping("/reports/mostsales/{amount}")
-    public Map<Product, Integer> getMostSoldProducts(@PathVariable("amount") Integer amount) {
+    public LinkedHashMap<Product, Integer> getMostSoldProducts(@PathVariable("amount") Integer amount) {
         return historyService.getMostSoldProducts(amount);
     }
 }

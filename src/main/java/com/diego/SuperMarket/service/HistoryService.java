@@ -4,6 +4,7 @@ import com.diego.SuperMarket.entity.History;
 import com.diego.SuperMarket.entity.Product;
 import org.springframework.http.ResponseEntity;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,5 +24,5 @@ public interface HistoryService {
 
     Product getHistoryProduct(Long historyId);
 
-    Map<Product, Integer> getMostSoldProducts(Integer amount);
+    LinkedHashMap<Product, Integer> getMostSoldProducts(Integer amount);
 }

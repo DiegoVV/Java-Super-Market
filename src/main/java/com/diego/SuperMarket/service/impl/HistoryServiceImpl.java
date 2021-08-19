@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toMap;
+
 @Service
 @RequiredArgsConstructor
 public class HistoryServiceImpl implements HistoryService {
@@ -102,5 +104,36 @@ public class HistoryServiceImpl implements HistoryService {
         Long productId = getHistory(historyId).getProductId();
 
         return productService.getProduct(productId);
+    }
+
+    @Override
+    public Map<Product, Integer> getMostSoldProducts(Integer amount) {
+        List<History> history = getHistory();
+
+        Map<Product, Integer> sales = new HashMap<>();
+
+        for(History hist : history) {
+            Boolean exists = false;
+            Product product = getHistoryProduct(hist.getId());
+            if(sales.containsKey(product)){
+                exists = true;
+                sales.put(product, sales.get(product) + hist.getQuantity());
+            }
+            if(!exists){
+                sales.put(product, hist.getQuantity());
+            }
+        }
+
+        Map<Product, Integer> sortedSales = sales
+                .entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .collect(
+                        toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
+                                LinkedHashMap::new));
+
+        System.out.println(sortedSales);
+
+        return sortedSales;
     }
 }

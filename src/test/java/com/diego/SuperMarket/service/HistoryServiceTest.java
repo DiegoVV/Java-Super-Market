@@ -147,6 +147,29 @@ class HistoryServiceTest {
         Assertions.assertEquals(product.getPrice(), retrieved.getPrice());
     }
 
+    @Test
+    void getMostSoldProducts() {
+
+        Product product = productService.addProduct(new Product("Chocolate", 1.00F));
+        Product product2 = productService.addProduct(new Product("Water", 2.00F));
+        Product product3 = productService.addProduct(new Product("Garlic Bread", 3.50F));
+
+        Inventory inventory = inventoryService.addInventory(new Inventory(product, 35));
+        Inventory inventory2 = inventoryService.addInventory(new Inventory(product2, 80));
+        Inventory inventory3 = inventoryService.addInventory(new Inventory(product3, 100));
+
+        History history = historyService.addHistory(new History(product.getId(), 5));
+        History history2 = historyService.addHistory(new History(product.getId(), 5));
+        History history3 = historyService.addHistory(new History(product2.getId(), 15));
+        History history4 = historyService.addHistory(new History(product2.getId(), 25));
+        History history5 = historyService.addHistory(new History(product3.getId(), 30));
+        History history6 = historyService.addHistory(new History(product.getId(), 10));
+
+        historyService.getMostSoldProducts(2);
+
+        Assertions.assertEquals(1, 1);
+    }
+
     @AfterEach
     void tearDown() {
         System.out.println("--- Test finished ---");

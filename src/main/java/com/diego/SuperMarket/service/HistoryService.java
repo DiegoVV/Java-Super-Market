@@ -22,4 +22,6 @@ public interface HistoryService {
     void deleteHistory();
 
     Product getHistoryProduct(Long historyId);
+
+    Map<Product, Integer> getMostSoldProducts(Integer amount);
 }

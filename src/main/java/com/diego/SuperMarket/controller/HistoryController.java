@@ -3,7 +3,6 @@ package com.diego.SuperMarket.controller;
 import com.diego.SuperMarket.entity.History;
 import com.diego.SuperMarket.entity.Product;
 import com.diego.SuperMarket.service.HistoryService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,5 +52,10 @@ public class HistoryController {
     @GetMapping("{historyId}/product")
     public Product getHistoryProduct(@PathVariable("historyId") Long historyId) {
         return historyService.getHistoryProduct(historyId);
+    }
+
+    @GetMapping("/reports/mostsales/{amount}")
+    public Map<Product, Integer> getMostSoldProducts(@PathVariable("amount") Integer amount) {
+        return historyService.getMostSoldProducts(amount);
     }
 }

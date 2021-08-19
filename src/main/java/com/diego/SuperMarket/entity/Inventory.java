@@ -3,6 +3,8 @@ package com.diego.SuperMarket.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 
@@ -16,8 +18,10 @@ public class Inventory {
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
     )
+    @Column(name = "id")
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
     private Integer quantity;
 

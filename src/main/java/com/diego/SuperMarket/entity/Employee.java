@@ -16,6 +16,7 @@ public class Employee {
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
     )
+    @Column(name = "id")
     private Long id;
     private Float salary;
     private String name;

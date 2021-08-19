@@ -14,6 +14,8 @@ class InventoryServiceTest {
 
     @Autowired
     private InventoryService inventoryService;
+    @Autowired
+    private ProductService productService;
 
     @BeforeEach
     void setUp() {
@@ -25,16 +27,13 @@ class InventoryServiceTest {
     @DisplayName("Get all inventories")
     void getInventory() {
 
-        Product product = new Product("Chocolate", 1.00F);
-        Integer quantity = 20;
-        Product product2 = new Product("Water", 2.00F);
-        Integer quantity2 = 50;
-        Product product3 = new Product("Garlic Bread", 3.50F);
-        Integer quantity3 = 10;
+        Product product = productService.addProduct(new Product("Chocolate", 1.00F));
+        Product product2 = productService.addProduct(new Product("Water", 2.00F));
+        Product product3 = productService.addProduct(new Product("Garlic Bread", 3.50F));
 
-        Inventory inventory = inventoryService.addInventory(new Inventory(product,quantity));
-        Inventory inventory2 = inventoryService.addInventory(new Inventory(product2,quantity2));
-        Inventory inventory3 = inventoryService.addInventory(new Inventory(product3,quantity3));
+        Inventory inventory = inventoryService.addInventory(new Inventory(product, 35));
+        Inventory inventory2 = inventoryService.addInventory(new Inventory(product2, 80));
+        Inventory inventory3 = inventoryService.addInventory(new Inventory(product3, 100));
 
         List inventoryList = new ArrayList<Inventory>();
         inventoryList.add(inventory);
@@ -51,73 +50,61 @@ class InventoryServiceTest {
     @DisplayName("Get a specific inventory")
     void getSingleInventory() {
 
-        Product product = new Product("Chocolate", 1.00F);
-        Integer quantity = 20;
-        Product product2 = new Product("Water", 2.00F);
-        Integer quantity2 = 50;
+        Product product = productService.addProduct(new Product("Chocolate", 1.00F));
+        Product product2 = productService.addProduct(new Product("Water", 2.00F));
 
-        Inventory inventory = new Inventory(product,quantity);
-        Inventory inventory2 = new Inventory(product2,quantity2);
+        Inventory inventory = inventoryService.addInventory(new Inventory(product, 35));
+        Inventory inventory2 = inventoryService.addInventory(new Inventory(product2, 80));
 
-        Long id1 = inventoryService.addInventory(inventory).getId();
-        Long id2 = inventoryService.addInventory(inventory2).getId();
+        Assertions.assertEquals(inventory.getQuantity(),inventoryService.getInventory(inventory.getId()).getQuantity());
+        Assertions.assertEquals(product.getName(),inventoryService.getInventory(inventory.getId()).getProduct().getName());
 
-        Assertions.assertEquals(20,inventoryService.getInventory(id1).getQuantity());
-        Assertions.assertEquals("Chocolate",inventoryService.getInventory(id1).getProduct().getName());
-
-        Assertions.assertEquals(50,inventoryService.getInventory(id2).getQuantity());
-        Assertions.assertEquals("Water",inventoryService.getInventory(id2).getProduct().getName());
+        Assertions.assertEquals(inventory2.getQuantity(),inventoryService.getInventory(inventory2.getId()).getQuantity());
+        Assertions.assertEquals(product2.getName(),inventoryService.getInventory(inventory2.getId()).getProduct().getName());
     }
 
     @Test
     @DisplayName("Adding an inventory")
     void addInventory() {
 
-
         Assertions.assertTrue(inventoryService.getInventory().isEmpty(), "The repository was not empty");
 
-        Product product = new Product("Chocolate", 1.00F);
-        Integer quantity = 20;
+        Product product = productService.addProduct(new Product("Chocolate", 1.00F));
 
-        Inventory inventory = inventoryService.addInventory(new Inventory(product,quantity));
+        Inventory inventory = inventoryService.addInventory(new Inventory(product, 35));
 
         Assertions.assertFalse(inventoryService.getInventory().isEmpty(), "The inventory was not added to the repository");
 
-        Assertions.assertEquals(20,inventoryService.getInventory(inventory.getId()).getQuantity());
-        Assertions.assertEquals("Chocolate",inventoryService.getInventory(inventory.getId()).getProduct().getName());
+        Assertions.assertEquals(inventory.getQuantity(),inventoryService.getInventory(inventory.getId()).getQuantity());
+        Assertions.assertEquals(product.getName(),inventoryService.getInventory(inventory.getId()).getProduct().getName());
     }
 
     @Test
     @DisplayName("Updating inventory info")
     void updateInventory() {
 
-        Product product = new Product("Chocolate", 1.00F);
-        Integer quantity = 20;
-        Product product2 = new Product("Water", 2.00F);
-        Integer quantity2 = 50;
+        Product product = productService.addProduct(new Product("Chocolate", 1.00F));
+        Product product2 = productService.addProduct(new Product("Water", 2.00F));
 
-        Inventory inventory = new Inventory(product,quantity);
-        Inventory inventory2 = new Inventory(product2,quantity2);
+        Inventory inventory = inventoryService.addInventory(new Inventory(product, 35));
+        Inventory inventory2 = new Inventory(product2, 80);
 
-        Long id1 = inventoryService.addInventory(inventory).getId();
+        Assertions.assertEquals(inventory.getQuantity(),inventoryService.getInventory(inventory.getId()).getQuantity());
+        Assertions.assertEquals(product.getName(),inventoryService.getInventory(inventory.getId()).getProduct().getName());
 
-        Assertions.assertEquals(20,inventoryService.getInventory(id1).getQuantity());
-        Assertions.assertEquals("Chocolate",inventoryService.getInventory(id1).getProduct().getName());
+        Inventory inventory3 = inventoryService.updateInventory(inventory.getId(), inventory2);
 
-        Inventory inventory3 = inventoryService.updateInventory(id1, inventory2);
-
-        Assertions.assertEquals(50,inventoryService.getInventory(id1).getQuantity());
-        Assertions.assertEquals("Water",inventoryService.getInventory(id1).getProduct().getName());
+        Assertions.assertEquals(inventory2.getQuantity(),inventoryService.getInventory(inventory.getId()).getQuantity());
+        Assertions.assertEquals(product2.getName(),inventoryService.getInventory(inventory.getId()).getProduct().getName());
     }
 
     @Test
     @DisplayName("Deleting an inventory")
     void deleteInventory() {
 
-        Product product = new Product("Chocolate", 1.00F);
-        Integer quantity = 20;
+        Product product = productService.addProduct(new Product("Chocolate", 1.00F));
 
-        Inventory inventory = inventoryService.addInventory(new Inventory(product,quantity));
+        Inventory inventory = inventoryService.addInventory(new Inventory(product, 35));
 
         Assertions.assertFalse(inventoryService.getInventory().isEmpty(), "The inventory was not added to the repository");
         inventoryService.deleteInventory(inventory.getId());

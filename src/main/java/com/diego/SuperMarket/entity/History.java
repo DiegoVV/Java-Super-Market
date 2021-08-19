@@ -19,6 +19,7 @@ public class History {
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
     )
+    @Column(name = "id")
     private Long id;
     @CreatedDate
     private Instant date; // Moment of purchase

@@ -1,15 +1,18 @@
 package com.diego.SuperMarket.service.impl;
 
 import com.diego.SuperMarket.entity.History;
+import com.diego.SuperMarket.entity.Inventory;
 import com.diego.SuperMarket.entity.Product;
 import com.diego.SuperMarket.repository.HistoryRepository;
 import com.diego.SuperMarket.service.HistoryService;
+import com.diego.SuperMarket.service.InventoryService;
 import com.diego.SuperMarket.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +20,7 @@ public class HistoryServiceImpl implements HistoryService {
 
     private final HistoryRepository historyRepository;
     private final ProductService productService;
+    private final InventoryService inventoryService;
 
     @Override
     public List<History> getHistory() {
@@ -32,6 +36,20 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public History addHistory(History history) {
+
+        List<Inventory> inventories = inventoryService.getInventory();
+
+        inventories = inventories.stream().filter(inv -> (history.getProductId() == (inv.getProduct() == null ? null : inv.getProduct().getId()))).collect(Collectors.toList());
+
+        if (inventories.isEmpty()) {
+            throw new IndexOutOfBoundsException("Trying to create history of product without inventory");
+        }
+
+        Inventory inventory = inventories.get(0);
+
+        Inventory updatedInventory = new Inventory(inventory.getProduct(), inventory.getQuantity() - history.getQuantity());
+        inventory = inventoryService.updateInventory(inventory.getId(), updatedInventory);
+
         return historyRepository.save(history);
     }
 

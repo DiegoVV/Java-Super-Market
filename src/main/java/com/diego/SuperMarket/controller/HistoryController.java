@@ -4,6 +4,7 @@ import com.diego.SuperMarket.entity.History;
 import com.diego.SuperMarket.entity.Product;
 import com.diego.SuperMarket.service.HistoryService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ import java.util.NoSuchElementException;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping(path = "api/v1/histories")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class HistoryController {
 
     private final HistoryService historyService;

@@ -3,6 +3,7 @@ package com.diego.SuperMarket.controller;
 import com.diego.SuperMarket.entity.Inventory;
 import com.diego.SuperMarket.service.InventoryService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ import java.util.NoSuchElementException;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping(path = "api/v1/inventories")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class InventoryController {
 
     private final InventoryService inventoryService;

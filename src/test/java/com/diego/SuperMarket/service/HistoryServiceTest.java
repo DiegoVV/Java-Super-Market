@@ -47,11 +47,11 @@ class HistoryServiceTest {
         History history = historyService.addHistory(new History(1L, 5));
         History history2 = historyService.addHistory(new History(2L, 15));
 
-        Assertions.assertEquals(1L, history.getProductId());
-        Assertions.assertEquals(5, history.getQuantity());
+        Assertions.assertEquals(1L, historyService.getHistory(history.getId()).getProductId());
+        Assertions.assertEquals(5, historyService.getHistory(history.getId()).getQuantity());
 
-        Assertions.assertEquals(2L, history2.getProductId());
-        Assertions.assertEquals(15, history2.getQuantity());
+        Assertions.assertEquals(2L, historyService.getHistory(history2.getId()).getProductId());
+        Assertions.assertEquals(15, historyService.getHistory(history2.getId()).getQuantity());
     }
 
     @Test

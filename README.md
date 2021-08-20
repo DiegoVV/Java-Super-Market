@@ -46,7 +46,8 @@ POSTMAN COMMANDS:
     "login":"admin",
     "password":"admin"
 }
-Remember, the JWT must be inserted in the HEADER with the key "Authorization" and the value "Bearer insert_key_here", no quotation marks
+Remember, the JWT must be inserted in the HEADER with the key "Authorization" and the value "Bearer insert_key_here", no quotation marks.
+It also has an expiration time of 30 minutes.
 
 - POST http://localhost:8080/api/v1/employees //creates an employee
 {    

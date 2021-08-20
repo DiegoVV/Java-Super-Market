@@ -111,6 +111,8 @@ class InventoryServiceTest {
 
     @AfterEach
     void tearDown() {
+        inventoryService.deleteInventory();
+        productService.deleteProduct();
         System.out.println("--- Test finished ---");
     }
 }

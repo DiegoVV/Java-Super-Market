@@ -104,6 +104,8 @@ class EmployeeServiceTest {
 
     @AfterEach
     void tearDown() {
+        employeeService.deleteEmployee();
         System.out.println("--- Test finished ---");
+        employeeService.addEmployee(new Employee(10000F,"admin","admin", Role.ADMIN));
     }
 }

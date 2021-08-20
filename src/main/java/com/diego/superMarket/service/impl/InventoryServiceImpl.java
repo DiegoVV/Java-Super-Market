@@ -3,6 +3,7 @@ package com.diego.superMarket.service.impl;
 import com.diego.superMarket.entity.Inventory;
 import com.diego.superMarket.repository.InventoryRepository;
 import com.diego.superMarket.service.InventoryService;
+import com.diego.superMarket.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 public class InventoryServiceImpl implements InventoryService {
 
     private final InventoryRepository inventoryRepository;
+    private final ProductService productService;
 
     @Override
     public List<Inventory> getInventory() {
@@ -68,5 +70,13 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public void deleteInventory() {
         inventoryRepository.deleteAll();
+    }
+
+    @Override
+    public Inventory setInventoryProduct(Long id, Long productId) {
+        Inventory inventory = getInventory(id);
+        inventory.setProduct(productService.getProduct(productId));
+
+        return updateInventory(id, inventory);
     }
 }

@@ -187,6 +187,9 @@ class HistoryServiceTest {
 
     @AfterEach
     void tearDown() {
+        historyService.deleteHistory();
+        inventoryService.deleteInventory();
+        productService.deleteProduct();
         System.out.println("--- Test finished ---");
     }
 }

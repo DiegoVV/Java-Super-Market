@@ -27,4 +27,8 @@ public class Inventory {
         this.product = product;
         this.quantity = quantity;
     }
+
+    public Inventory(Integer quantity) {
+        this.quantity = quantity;
+    }
 }

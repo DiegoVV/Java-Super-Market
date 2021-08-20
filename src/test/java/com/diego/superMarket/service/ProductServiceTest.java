@@ -93,6 +93,7 @@ class ProductServiceTest {
 
     @AfterEach
     void tearDown() {
+        productService.deleteProduct();
         System.out.println("--- Test finished ---");
     }
 }

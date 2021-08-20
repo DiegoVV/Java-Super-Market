@@ -19,4 +19,6 @@ public interface InventoryService {
     ResponseEntity<Map<String, Boolean>> deleteInventory(Long id);
 
     void deleteInventory();
+
+    Inventory setInventoryProduct(Long id, Long productId);
 }

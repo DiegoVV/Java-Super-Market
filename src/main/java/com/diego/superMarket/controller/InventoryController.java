@@ -38,6 +38,11 @@ public class InventoryController {
         return inventoryService.updateInventory(id, inventory);
     }
 
+    @PutMapping("/{id}/{productId}")
+    public Inventory setInventoryProduct(@PathVariable("id") Long id, @PathVariable("productId") Long productId) {
+        return inventoryService.setInventoryProduct(id, productId);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteInventory(@PathVariable("id") Long id){
         return inventoryService.deleteInventory(id);

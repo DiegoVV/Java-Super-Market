@@ -22,7 +22,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    public static final int TOKEN_EXPIRATION = 600000; // 10 minutes
+    public static final int TOKEN_EXPIRATION = 1800000; // 30 minutes
 
     public static final String TOKEN_SECRET = "2f937a1c-bd0c-4444-9f26-1df6b564d9e1"; //Ideally this would be hidden in a configuration file, not exposed. But doing it this way for development purposes
 

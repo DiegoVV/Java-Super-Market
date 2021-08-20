@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +30,7 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public Inventory addInventory(Inventory inventory) {
-// Tried checking if the product already had an existing inventory, but resulted in InvalidDataAccessApiUsageException exception
+// Checking if the product already had an existing inventory
 //        List<Inventory> inventories = getInventory();
 //
 //        if(!inventories.isEmpty()) {

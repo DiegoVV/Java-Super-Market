@@ -33,4 +33,9 @@ public class Employee {
         this.password = password;
         this.role = role;
     }
+
+    public Employee(String name, String password) {
+        this.login = name;
+        this.password = password;
+    }
 }

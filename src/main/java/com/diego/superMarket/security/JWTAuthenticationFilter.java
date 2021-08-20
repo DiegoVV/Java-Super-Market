@@ -13,7 +13,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -23,7 +22,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    public static final int TOKEN_EXPIRATION = 6000; // 10 minutes
+    public static final int TOKEN_EXPIRATION = 600000; // 10 minutes
 
     public static final String TOKEN_SECRET = "2f937a1c-bd0c-4444-9f26-1df6b564d9e1"; //Ideally this would be hidden in a configuration file, not exposed. But doing it this way for development purposes
 
@@ -45,7 +44,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
 
         MyUserDetailsData myUserDetailsData = (MyUserDetailsData) authResult.getPrincipal();
 

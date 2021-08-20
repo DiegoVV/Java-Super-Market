@@ -42,8 +42,6 @@ class InventoryServiceTest {
 
         Assertions.assertFalse(inventoryService.getInventory().isEmpty(), "No inventories were returned");
         Assertions.assertEquals(inventoryList, inventoryService.getInventory(), "Returned something other than the 3 mocked inventories");
-
-//        Assertions.assertEquals(inventoryList,inventoryService.getInventory());
     }
 
     @Test

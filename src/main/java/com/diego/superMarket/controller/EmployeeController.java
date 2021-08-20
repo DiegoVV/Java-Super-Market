@@ -32,6 +32,11 @@ public class EmployeeController {
         return employeeService.addEmployee(employee);
     }
 
+//    @PostMapping("/login")
+//    public Employee loginEmployee(@RequestBody Employee employee){
+//        return employeeService.loginEmployee(employee);
+//    }
+
     @PutMapping("/{id}")
     public Employee updateEmployee(@PathVariable("id") Long id, @RequestBody Employee employee){
         return employeeService.updateEmployee(id, employee);

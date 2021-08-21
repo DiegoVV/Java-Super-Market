@@ -1,0 +1,21 @@
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param # Once in production, might want to change this to "never" as to not reveal internal workings
+    include-exception: false
+
+spring:
+  datasource:
+    password:
+    url: jdbc:postgresql://localhost:5432/
+    username: 
+  jpa:
+    hibernate:
+#      ddl-auto: create-drop
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
